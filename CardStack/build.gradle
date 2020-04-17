@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    //compileOptions {
+    //    sourceCompatibility JavaVersion.VERSION_1_6
+    //    targetCompatibility JavaVersion.VERSION_1_6
+    //}
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+}
+
+//./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+//publish {
+//    userOrg = 'juanpablo'
+//    groupId = 'com.wenchao'
+//    artifactId = 'cardstack'
+//    version = '1.0.0'
+//    description = 'A tinder like swipeable card stack component'
+//    website = 'https://github.com/juanpabloprado/AndroidSwipeableCardStack'
+//    issueTracker = "https://github.com/wenchaojiang/AndroidSwipeableCardStack/issues"
+//    repository = "https://github.com/juanpabloprado/AndroidSwipeableCardStack.git"
+//}

@@ -1,0 +1,3 @@
+rootProject.name='OpenLDR Pro'
+include ':OpenLDR-Pro'
+include ':CardStack'
