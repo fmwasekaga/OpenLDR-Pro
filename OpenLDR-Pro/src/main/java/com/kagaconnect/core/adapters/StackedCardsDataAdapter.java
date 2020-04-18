@@ -44,7 +44,7 @@ public class StackedCardsDataAdapter extends ArrayAdapter<Transmission> {
         calendar.set (Calendar.MONTH, item.getMonth()-1);
 
         final GridViewEx calendarGrid =  contentView.findViewById(R.id.calendar_grid);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(context, calendar);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(context, calendar, item);
         calendarAdapter.refreshDays();
 
         calendarGrid.setAdapter(calendarAdapter);

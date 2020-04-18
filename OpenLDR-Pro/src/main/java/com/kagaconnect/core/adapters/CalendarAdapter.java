@@ -1,8 +1,10 @@
 package com.kagaconnect.core.adapters;
 
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.kagaconnect.core.data.Transmission;
 import com.kagaconnect.openldrpro.R;
 
 public class CalendarAdapter extends BaseAdapter {
@@ -20,13 +23,15 @@ public class CalendarAdapter extends BaseAdapter {
     private final CalendarItem selected;
     private final LayoutInflater inflater;
     private CalendarItem[] days;
+	private Transmission item;
 
-    public CalendarAdapter(Context context, Calendar monthCalendar) {
-    	calendar = monthCalendar;
-    	today = new CalendarItem(monthCalendar);
-    	selected = new CalendarItem(monthCalendar);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public CalendarAdapter(Context context, Calendar monthCalendar, Transmission item) {
+    	this.calendar = monthCalendar;
+    	this.today = new CalendarItem(monthCalendar);
+    	this.selected = new CalendarItem(monthCalendar);
+        this.calendar.set(Calendar.DAY_OF_MONTH, 1);
+        this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.item = item;
     }
 
     @Override
@@ -55,9 +60,35 @@ public class CalendarAdapter extends BaseAdapter {
         }
         final TextView dayView = view.findViewById(R.id.date);
         final CalendarItem currentItem = days[position];
-
+		final Calendar cal = Calendar.getInstance();
+		final int y = cal.get(Calendar.YEAR);
+		final int m = cal.get(Calendar.MONTH);
+		final int d = cal.get(Calendar.DAY_OF_MONTH);
+		//Log.i("OpenLDR","DAY_OF_MONTH:"+d);
         if (currentItem != null) {
 			dayView.setText(currentItem.text);
+
+			if(item != null && item.getYear() <= y && item.getMonth() <= (m+1)){
+				if(item.getYear() == y && item.getMonth() == (m+1)) {
+					if(currentItem.day <= d) {
+						dayView.setTextColor(Color.WHITE);
+						List<Integer> days = item.getDays();
+						if (days.contains(currentItem.day))
+							view.setBackgroundColor(Color.parseColor("#22b967"));
+						else
+							view.setBackgroundColor(Color.parseColor("#ff0000"));
+					}
+				}
+				else if(item.getYear() <= y && item.getMonth() <= (m+1)) {
+					dayView.setTextColor(Color.WHITE);
+					List<Integer> days = item.getDays();
+					if (days.contains(currentItem.day))
+						view.setBackgroundColor(Color.parseColor("#22b967"));
+					else
+						view.setBackgroundColor(Color.parseColor("#ff0000"));
+				}
+			}
+			//view.setBackgroundColor(Color.parseColor("#f9f9f9"));
         }
 
         return view;
@@ -75,9 +106,11 @@ public class CalendarAdapter extends BaseAdapter {
     	final int month = calendar.get(Calendar.MONTH);
     	final int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
     	final int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		final int maxWeeknumber = calendar.getActualMaximum(Calendar.WEEK_OF_MONTH);
     	final int blankies;
     	final CalendarItem[] days;
 
+//Log.i("OpenLDR","firstDayOfMonth:"+firstDayOfMonth);
     	if (firstDayOfMonth == FIRST_DAY_OF_WEEK) {
     		blankies = 0;
         } else if (firstDayOfMonth < FIRST_DAY_OF_WEEK) {
@@ -85,10 +118,11 @@ public class CalendarAdapter extends BaseAdapter {
         } else {
         	blankies = firstDayOfMonth - FIRST_DAY_OF_WEEK;
         }
+
     	int len = lastDayOfMonth + blankies;
-    	int gap = 35-len;
+    	int gap = (7*(maxWeeknumber+(firstDayOfMonth >= 6 || firstDayOfMonth == 1 ? 1 : 0)))-len;
     	days = new CalendarItem[lastDayOfMonth + blankies + gap];
-		Log.i("OpenLDR","lastDayOfMonth:"+lastDayOfMonth);
+
         for (int day = 1, position = blankies; position < days.length; position++) {
         	if(day <= lastDayOfMonth)
         		days[position] = new CalendarItem(year, month, day++);

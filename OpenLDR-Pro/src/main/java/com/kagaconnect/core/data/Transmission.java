@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Transmission  implements Parcelable {
 
     @SerializedName("Name")
@@ -16,26 +19,6 @@ public class Transmission  implements Parcelable {
     @Expose
     private String System;
 
-    @SerializedName("Registered")
-    @Expose
-    private int Registered;
-
-    @SerializedName("Tested")
-    @Expose
-    private int Tested;
-
-    @SerializedName("Authorised")
-    @Expose
-    private int Authorised;
-
-    @SerializedName("TestedWorkload")
-    @Expose
-    private int TestedWorkload;
-
-    @SerializedName("AuthorisedWorkload")
-    @Expose
-    private int AuthorisedWorkload;
-
     @SerializedName("Year")
     @Expose
     private int Year;
@@ -44,14 +27,26 @@ public class Transmission  implements Parcelable {
     @Expose
     private int Month;
 
+    @SerializedName("Days")
+    @Expose
+    private List<Integer> Days;
+
+    @SerializedName("Totals")
+    @Expose
+    private List<TransmissionTotal> Totals;
+
     public Transmission() {
+        this.Days = new ArrayList<>();
+        this.Totals = new ArrayList<>();
     }
 
-    public Transmission(String name, String system, int year, int month) {
+    public Transmission(String name, String system, int year, int month, List<Integer> days) {
+        super();
         this.Name = name;
         this.System = system;
         this.Year = year;
         this.Month = month;
+        this.Days = days;
     }
 
     public String getName() {
@@ -70,46 +65,6 @@ public class Transmission  implements Parcelable {
         System = system;
     }
 
-    public int getRegistered() {
-        return Registered;
-    }
-
-    public void setRegistered(int registered) {
-        Registered = registered;
-    }
-
-    public int getTested() {
-        return Tested;
-    }
-
-    public void setTested(int tested) {
-        Tested = tested;
-    }
-
-    public int getAuthorised() {
-        return Authorised;
-    }
-
-    public void setAuthorised(int authorised) {
-        Authorised = authorised;
-    }
-
-    public int getTestedWorkload() {
-        return TestedWorkload;
-    }
-
-    public void setTestedWorkload(int testedWorkload) {
-        TestedWorkload = testedWorkload;
-    }
-
-    public int getAuthorisedWorkload() {
-        return AuthorisedWorkload;
-    }
-
-    public void setAuthorisedWorkload(int authorisedWorkload) {
-        AuthorisedWorkload = authorisedWorkload;
-    }
-
     public int getYear() {
         return Year;
     }
@@ -126,6 +81,14 @@ public class Transmission  implements Parcelable {
         Month = month;
     }
 
+    public List<Integer> getDays() {
+        return Days;
+    }
+
+    public void setDays(List<Integer> days) {
+        Days = days;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -135,28 +98,24 @@ public class Transmission  implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.Name);
         dest.writeString(this.System);
-        dest.writeInt(this.Registered);
-        dest.writeInt(this.Tested);
-        dest.writeInt(this.Authorised);
-        dest.writeInt(this.TestedWorkload);
-        dest.writeInt(this.AuthorisedWorkload);
         dest.writeInt(this.Year);
         dest.writeInt(this.Month);
+        dest.writeArray(this.Days.toArray());
+        dest.writeArray(this.Totals.toArray());
     }
-
-
 
     @SuppressWarnings("unchecked")
     protected Transmission(Parcel in) {
         this.Name= in.readString();
         this.System= in.readString();
-        this.Registered= in.readInt();
-        this.Tested= in.readInt();
-        this.Authorised= in.readInt();
-        this.TestedWorkload= in.readInt();
-        this.AuthorisedWorkload= in.readInt();
         this.Year= in.readInt();
         this.Month= in.readInt();
+
+        this.Days = new ArrayList<>();
+        in.readList(this.Days, Integer.class.getClassLoader());
+
+        this.Totals = new ArrayList<>();
+        in.readList(this.Totals, TransmissionTotal.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Transmission> CREATOR = new Parcelable.Creator<Transmission>() {
