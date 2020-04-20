@@ -37,6 +37,23 @@ public class TransmissionTotal  implements Parcelable {
 
     }
 
+    public TransmissionTotal(String name, int registered, int tested, int authorised, int testedWorkload, int authorisedWorkload) {
+        this.Name = name;
+        this.Registered = registered;
+        this.Tested = tested;
+        this.Authorised = authorised;
+        this.TestedWorkload = testedWorkload;
+        this.AuthorisedWorkload = authorisedWorkload;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
     public int getRegistered() {
         return Registered;
     }

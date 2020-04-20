@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         CardStack mCardStack = findViewById(R.id.container);
         mCardStack.setContentResource(R.layout.stacked_card);
         int year = 2020;
-        int month = 2;
+        int month = 3;
 
 
         StackedCardsDataAdapter mCardAdapter = new StackedCardsDataAdapter(getApplicationContext());
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Integer> days = new ArrayList<>();
 
-        int max = 21;
+        int max = lastDayOfMonth;
         int min = 1;
         Random random = new Random();
         for(int x=1; x<max; x++)

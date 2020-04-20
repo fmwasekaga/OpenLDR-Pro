@@ -40,22 +40,149 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <com.kagaconnect.core.views.GridViewEx android:id="@+id/calendar_grid"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="7"
-            android:verticalSpacing="1dp"
-            android:horizontalSpacing="1dp"
-            android:stretchMode="columnWidth"
-            />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginTop="8dp"
-            android:id="@+id/info"
-            android:textAlignment="center"
+            <LinearLayout
+                android:background="#10000000"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"/>
+
+            <com.kagaconnect.core.views.GridViewEx
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="1dp"
+                android:id="@+id/calendar_grid"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:numColumns="7"
+                android:verticalSpacing="1dp"
+                android:horizontalSpacing="1dp"
+                android:stretchMode="columnWidth"
+                />
+
+            <LinearLayout
+                android:background="#10000000"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="#10000000"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:background="#10000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/info"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"/>
+
+                <LinearLayout
+                    android:layout_marginTop="4dp"
+                    android:background="#10000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="4dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="36dp">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="9sp"
+                            android:textColor="#90000000"
+                            android:text="Registered"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="9sp"
+                            android:textColor="#90000000"
+                            android:text="Tested"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="9sp"
+                            android:textColor="#90000000"
+                            android:text="Authorized"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="4dp"
+                    android:background="#10000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="4dp"/>
+
+                <com.kagaconnect.core.views.GridViewEx
+                    android:id="@+id/totals_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="1"
+                    android:verticalSpacing="0dp"
+                    android:horizontalSpacing="0dp"
+                    android:stretchMode="columnWidth"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#10000000"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

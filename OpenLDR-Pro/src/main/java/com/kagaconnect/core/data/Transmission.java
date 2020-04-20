@@ -38,10 +38,14 @@ public class Transmission  implements Parcelable {
     public Transmission() {
         this.Days = new ArrayList<>();
         this.Totals = new ArrayList<>();
+
+        this.Totals.add(new TransmissionTotal("HIV", 10000,100,33,1,2));
+        this.Totals.add(new TransmissionTotal("EID", 1000,10000,90000,10000,20000));
+        this.Totals.add(new TransmissionTotal("Other", 100000,100000,100000,100000,100000));
     }
 
     public Transmission(String name, String system, int year, int month, List<Integer> days) {
-        super();
+        this();
         this.Name = name;
         this.System = system;
         this.Year = year;
@@ -87,6 +91,14 @@ public class Transmission  implements Parcelable {
 
     public void setDays(List<Integer> days) {
         Days = days;
+    }
+
+    public List<TransmissionTotal> getTotals() {
+        return Totals;
+    }
+
+    public void setTotals(List<TransmissionTotal> totals) {
+        Totals = totals;
     }
 
     @Override
